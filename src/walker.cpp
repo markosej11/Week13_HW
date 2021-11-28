@@ -41,7 +41,11 @@
 #include "include/walker.hpp"
 
 void hw13::Walker::laser_callback(const sensor_msgs::LaserScan::ConstPtr& data) {
-
+    distance = 0;
+    for (int val:data) {
+        if (val > distance)
+            distance = val;
+    }
 }
 
 hw13::Walker::Walker(ros::NodeHandle node) {
