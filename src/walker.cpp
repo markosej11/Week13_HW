@@ -1,9 +1,8 @@
-#pragma once
 /**
  *  @Copyright 2021 Markose Jacob
- *  @file walker.hpp
+ *  @file walker.cpp
  *  @author Markose Jacob
- *  @date 11/27/2021
+ *  @date 11/18/2020
  *
  *  @brief Walker class 
  *
@@ -31,41 +30,51 @@
  * 
  *  @section DESCRIPTION
  *
- *  Header file for Walker Algorithm Class 
+ *  Class implementation
  *
  */
 
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "sensor_msgs/LaserScan.h"
+#include "geometry_msgs/Twist.h"
+#include "include/walker.hpp"
 
-namespace hw13 {
-/**
- * @brief Walker class
- * **/
-class Walker {
- private:
-    /**
-     * @brief Stores distance (in meters) from obstacle.
-     * **/
-    double distance;
- public:
-    /**
-     * @brief Walker class constructor.
-     * @param node ROS Nodehandle
-     * **/
-    Walker(ros::NodeHandle node);
+void hw13::Walker::laser_callback(const sensor_msgs::LaserScan::ConstPtr& data) {
 
-    /**
-     * @brief Laserscan subscriber callback
-     * @param data Single scan from a planar laser range finder
-     * **/
-    void laser_callback(const sensor_msgs::LaserScan::ConstPtr& data);
+}
 
-    /**
-     * @brief Walker class destructor.
-     * @param node ROS Nodehandle
-     * **/
-    ~Walker(ros::NodeHandle node) {};
-};
-} // namespace hw13
+hw13::Walker::Walker(ros::NodeHandle node) {
+    // ROS subscriber to LaserScan
+    ros::Subscriber laserSubscriber = node.subscribe("/scan", 1000, &laser_callback);
+
+    // ROS publisher to velocity topic
+    ros::Publisher velocityPublisher = node.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1)
+
+    // Looprate of 4 Hz
+    ros::Rate  looprate(4);
+
+    while (ros::ok()) {
+        // Define twist msg
+        geometry_msgs::Twist twist;
+        // Initialize to all zeros
+        twist.linear.x = 0.0;
+        twist.linear.y = 0.0;
+        twist.linear.z = 0.0;
+        twist.angular.x = 0.0;
+        twist.angular.y = 0.0;
+        twist.angular.z = 0.0;
+
+        if (distance > 0.77) {
+            ROS_INFO_STREAM("Moving forward ...");
+            twist.linear.x = 0.15;
+        } else {
+            ROS_INFO_STREAM("Rotating ...");
+            twist.angular.z = 1.5;
+        }
+
+        velocityPublisher.publish(twist)
+        ros::spinOnce();
+        loopRate.sleep();
+    }
+}
