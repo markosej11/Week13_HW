@@ -54,7 +54,7 @@ class Walker {
      * @brief Walker class constructor.
      * @param node ROS Nodehandle
      * **/
-    Walker(ros::NodeHandle node);
+    explicit Walker(ros::NodeHandle node);
 
     /**
      * @brief Laserscan subscriber callback
@@ -62,4 +62,4 @@ class Walker {
      * **/
     void laserCallback(const sensor_msgs::LaserScan::ConstPtr& data);
 };
-} // namespace hw13
+}  // namespace hw13

@@ -1,5 +1,5 @@
 # Project_ROCR
-[![License:MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/viveksood97/Project_ROCR/LICENSE)
+[![License:MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/markosej11/turtlebot3_walker/LICENSE)
 
 Walker Algorithm implementation for the Turtlebot 3 in Gazebo
 

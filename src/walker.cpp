@@ -2,7 +2,7 @@
  *  @Copyright 2021 Markose Jacob
  *  @file walker.cpp
  *  @author Markose Jacob
- *  @date 11/18/2020
+ *  @date 11/28/2021
  *
  *  @brief Walker class 
  *
@@ -47,10 +47,12 @@ void hw13::Walker::laserCallback(const sensor_msgs::LaserScan::ConstPtr& data) {
 
 hw13::Walker::Walker(ros::NodeHandle node) {
     // ROS subscriber to LaserScan
-    ros::Subscriber laserSubscriber = node.subscribe("/scan", 1000, &Walker::laserCallback, this);
+    ros::Subscriber laserSubscriber = node.subscribe("/scan", 1000,
+    &Walker::laserCallback, this);
 
     // ROS publisher to velocity topic
-    ros::Publisher velocityPublisher = node.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
+    ros::Publisher velocityPublisher =
+    node.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
 
     // Looprate of 4 Hz
     ros::Rate  rate(4);
