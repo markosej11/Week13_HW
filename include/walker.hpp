@@ -35,9 +35,9 @@
  *
  */
 
-#include "ros/ros.h"
-#include "std_msgs/String.h"
-#include "sensor_msgs/LaserScan.h"
+#include <ros/ros.h>
+#include <std_msgs/String.h>
+#include <sensor_msgs/LaserScan.h>
 
 namespace hw13 {
 /**
@@ -60,6 +60,6 @@ class Walker {
      * @brief Laserscan subscriber callback
      * @param data Single scan from a planar laser range finder
      * **/
-    void laser_callback(const sensor_msgs::LaserScan::ConstPtr& data);
+    void laserCallback(const sensor_msgs::LaserScan::ConstPtr& data);
 };
 } // namespace hw13

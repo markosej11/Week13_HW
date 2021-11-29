@@ -34,13 +34,13 @@
  *
  */
 
-#include "ros/ros.h"
-#include "std_msgs/String.h"
-#include "sensor_msgs/LaserScan.h"
+#include <ros/ros.h>
+#include <std_msgs/String.h>
+#include <sensor_msgs/LaserScan.h>
 #include "geometry_msgs/Twist.h"
-#include "include/walker.hpp"
+#include "walker.hpp"
 
-void hw13::Walker::laser_callback(const sensor_msgs::LaserScan::ConstPtr& data) {
+void hw13::Walker::laserCallback(const sensor_msgs::LaserScan::ConstPtr& data) {
     distance = data->ranges[180];
     ROS_INFO_STREAM("Distance: " << distance);
 }
@@ -71,7 +71,7 @@ hw13::Walker::Walker(ros::NodeHandle node) {
             twist.linear.x = -0.12;
         } else {
             ROS_INFO_STREAM("Rotating ...");
-            twist.angular.z = 1.5;
+            twist.angular.z = 1.4;
         }
 
         velocityPublisher.publish(twist);
